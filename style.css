@@ -38,7 +38,9 @@ button:hover {
     background-color: var(--purple-color);
 }
 
-
+.hidden {
+    display: none !important;
+}
 
 /************************** GAME PROCESS ***********************************/
 #container {
@@ -127,18 +129,20 @@ button:hover {
     border: 5px solid var(--yellow-color);
 }
 
+/************************** MODAL ***********************************/
 #modal-wrapper {
     font-size: 1.2rem;
     position: absolute;
     top: 0;
     left: 0;
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     height: 100%;
     z-index: 1;
 }
+
 #show-modal {
     top: 0.5em;
     left: 0.5em;
@@ -172,3 +176,4 @@ button:hover {
     bottom: 0.5em;
     left: 0.5em;
 }
+

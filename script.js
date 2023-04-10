@@ -36,9 +36,9 @@ function reload () {
 	window.location.reload();
 }
 
-function showCloseModal(action){
-	if (action === 'close') dom.modal.style.display = 'none';
-	else dom.modal.style.display = 'flex';
+function toggleModal() {
+	console.log('toggle modal');
+	dom.modal.classList.toggle('hidden');
 }
 
 function getCount(){
@@ -148,9 +148,9 @@ function changeLevel(){
 	}}
 }
 
-dom.rotateBtn.addEventListener('click', () => { if(game) rotate() })
-dom.stopBtn.addEventListener('click', () => { if(!game) stop() })
-dom.showModalBtn.addEventListener('click', () => showCloseModal('show'))
-dom.closeModalBtn.addEventListener('click', () => showCloseModal('close'))
-dom.reloadBtn.addEventListener('click', () => reload())
-dom.message.addEventListener('click', () => changeLevel())
+dom.rotateBtn.addEventListener('click', () => { if(game) rotate() });
+dom.stopBtn.addEventListener('click', () => { if(!game) stop() });
+dom.showModalBtn.addEventListener('click', () => toggleModal());
+dom.closeModalBtn.addEventListener('click', () => toggleModal());
+dom.reloadBtn.addEventListener('click', () => reload());
+dom.message.addEventListener('click', () => changeLevel());
