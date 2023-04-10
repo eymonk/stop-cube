@@ -66,23 +66,23 @@ function showMessage (mood, time){
 	switch(mood){
 		case '+':
 			dom.message.style.color = 'var(--yellow-color)'
-			dom.message.textContent = 'УРА😉'
+			dom.message.textContent = 'Ура😉'
 		break
 		case '-':
 			dom.message.style.color = 'var(--red-color)'
-			dom.message.textContent = 'БЛИН🙁'
+			dom.message.textContent = 'Блин🙁'
 		break
 		case 'lost':
 			dom.message.style.color = 'var(--red-color)'
-			dom.message.textContent = 'ГАЙМОВЕР🤥'
+			dom.message.textContent = 'Ну всё, достаточно🤥'
 		break
 		case 'win':
 			dom.message.style.color = 'var(--yellow-color)'
-			dom.message.textContent = 'ДАЛЬШЕ🙃'
+			dom.message.textContent = 'Го дальше🙃'
 		break
 		case 'end':
 			dom.message.style.color = 'var(--yellow-color)'
-			dom.message.textContent = 'Какого х. ты так далеко забрался?'
+			dom.message.textContent = 'БОЛЬШОЙ УВАЖЕНИЙ😮'
 		break
 	}
 	if(time != -1) setTimeout(() => dom.message.style.display = 'none', time)
@@ -97,7 +97,7 @@ function rotate(){
 }
 
 function stop(){
-	if(dom.message.textContent !== 'ДАЛЬШЕ🙃'){
+	if(dom.message.textContent !== 'Го дальше🙃'){
 		game = true
 		cancelAnimationFrame(animation)
 		if(getCount() === 0){
@@ -129,7 +129,7 @@ function stop(){
 }
 
 function changeLevel(){
-	if(dom.message.textContent === 'ДАЛЬШЕ🙃'){
+	if(dom.message.textContent === 'Го дальше🙃'){
 		dom.nextLevel.play()
 		dom.message.textContent = ''
 		dom.message.style.display = 'none'
