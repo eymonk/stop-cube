@@ -1,7 +1,3 @@
-'use strict'
-
-
-//DOM ELEMENTS
 const dom = {
 	square: document.getElementById('square'),
 	squareImg: document.getElementById('square-img'),
@@ -36,13 +32,13 @@ speedCatalisator = 0.05
 
 
 //MECHANISMS
-function reload (){
-	window.location.reload()
+function reload () {
+	window.location.reload();
 }
 
 function showCloseModal(action){
-	if(action === 'close') dom.modal.style.display = 'none'
-	else dom.modal.style.display = 'flex'
+	if (action === 'close') dom.modal.style.display = 'none';
+	else dom.modal.style.display = 'flex';
 }
 
 function getCount(){
@@ -85,7 +81,7 @@ function showMessage (mood, time){
 			dom.message.textContent = 'БОЛЬШОЙ УВАЖЕНИЙ😮'
 		break
 	}
-	if(time != -1) setTimeout(() => dom.message.style.display = 'none', time)
+	if(time !== -1) setTimeout(() => dom.message.style.display = 'none', time)
 }
 
 function rotate(){

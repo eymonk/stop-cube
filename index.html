@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta lang="en, ru">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="style.css">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
-        <script defer src="js/script.js"></script>
+        <script defer src="script.js"></script>
         <title>stop-cube</title>
     </head>
     <body>
         <div id="container">
             <div id="square">
-                <img id="square-img" src="./img/level-1.jpg">
+                <img id="square-img" src="assets/img/level-1.jpg" alt="rotating image">
             </div>
             <div id="mark"></div>
         </div>
@@ -23,26 +23,26 @@
                 <h3>Информация об игре</h3>
                 <div>
                     <p>Привет!</p><br>
-                    <p>Твоя задача совместить любой из уголков квадрата с жёлтой меткой.</p><br>
-                    <p>Чтобы пройти уровень, нужно добиться максимальной чёткости фотографии. В правом верхнем углу отображается уровень чёткости. Если уровееь замутнения фото окажется выше 10 - ты проиграла.</p><br>
-                    <p>При каждом шаге навстречу победе скорость вращения квадрата увеличивается и в последствии её нельзя уменьшить. Она снова уменьшится, если ты пройдёшь уровень.</p><br>
+                    <p>Твоя задача совместить любой из углов квадрата с жёлтой меткой.</p><br>
+                    <p>Чтобы пройти уровень, нужно добиться максимальной чёткости фотографии. В правом верхнем углу отображается уровень чёткости. Если уровень замутнения фото окажется выше 10 - ты проиграл(а).</p><br>
+                    <p>При каждом шаге навстречу победе скорость вращения увеличивается и в последствии её нельзя уменьшить. Она снова уменьшится, если ты пройдёшь уровень.</p><br>
                     <p>Удачи!</p>
                 </div>
                 <button id="close-modal">закрыть</button>
             </div> 
         </div>
         <div id="btn-div">
-            <button id="rotate">КРУТИ 🔁</button>
-            <button id="stop">СТОП ⛔</button>  
+            <button id="rotate">вращай 🔁</button>
+            <button id="stop">стоп ⛔</button>
         </div>
-        <div id="blur-div"><p>муть <span id="blur">4</span></p></div>
+        <div id="blur-div"><p>замутнение<span id="blur">4</span></p></div>
         <h3 id="message"></h3>
         <button class="small-btn" id="reload">↺</button>
 
-        <audio id="nice" src="audio/nice.mp3">
-        <audio id="not-nice" src="audio/not-nice.mp3">
-        <audio id="next-level" src="audio/next-level.mp3">
-        <audio id="lost" src="audio/lost.mp3">
-        <audio id="last-level" src="audio/last-level.mp3">
+        <audio id="nice" src="assets/audio/nice.mp3"></audio>
+        <audio id="not-nice" src="assets/audio/not-nice.mp3"></audio>
+        <audio id="next-level" src="assets/audio/next-level.mp3"></audio>
+        <audio id="lost" src="assets/audio/lost.mp3"></audio>
+        <audio id="last-level" src="assets/audio/last-level.mp3"></audio>
     </body>
 </html>
