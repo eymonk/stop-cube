@@ -173,6 +173,36 @@ button:hover {
     transition: .1s;
 }
 
+/************************** CONTACTS ***********************************/
+#contacts {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    padding: 1rem;
+}
+#contacts a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+    color: var(--yellow-color);
+    text-decoration-color: var(--purple-color);
+}
+#contacts a:hover{
+    text-decoration-color: var(--yellow-color);
+}
+
+#contacts img {
+    width: 30px;
+}
+
+
 #reload {
     bottom: 0.5em;
     left: 0.5em;
