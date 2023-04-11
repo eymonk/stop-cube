@@ -9,8 +9,8 @@ const dom = {
 	showModalBtn: document.getElementById('show-modal'),
 	closeModalBtn: document.getElementById('close-modal'),
 	modal: document.getElementById('modal-wrapper'),
-	audioNice: document.getElementById('audio-nice'),
-	audioNotNice: document.getElementById('audio-not-nice'),
+	audioSuccess: document.getElementById('audio-success'),
+	audioMistake: document.getElementById('audio-mistake'),
 	audioNextLevel: document.getElementById('audio-next-level'),
 	audioLost: document.getElementById('audio-ost'),
 	audioLastLevel: document.getElementById('audio-last-level'),
@@ -65,17 +65,21 @@ function showMessage (mood, time){
 	switch(mood){
 		case 'success':
 			dom.message.textContent = messages.success;
+			dom.audioSuccess.play();
 		break
 		case 'mistake':
 			dom.message.style.color = 'var(--red-color)';
 			dom.message.textContent = messages.mistake;
+			dom.audioMistake.play();
 		break
 		case 'lost':
 			dom.message.style.color = 'var(--red-color)';
 			dom.message.textContent = messages.lost;
+			dom.audioLost.play();
 		break
 		case 'win':
 			dom.message.textContent = messages.win;
+			dom.audioNextLevel.play();
 		break
 		case 'end':
 			dom.message.textContent = messages.end;
@@ -95,39 +99,49 @@ function rotate() {
 	state.rotateAngle += state.speed;
 }
 
+function stopGame() {
+	state.game = false;
+	dom.square.style.transition = `1s`;
+	state.rotateAngle = 0;
+	dom.square.style.transform = `rotate(${state.rotateAngle}deg)`;
+	setTimeout(() => dom.square.style.transition = `0s`, 1000);
+}
+
+
+function decreaseImageBlur() {
+	dom.blur.textContent = `${--state.blur}`;
+	dom.squareImg.style.filter = `blur(${state.blur}px)`;
+}
+
+function increaseImageBlur() {
+	dom.blur.textContent = `${++state.blur}`;
+	dom.squareImg.style.filter = `blur(${state.blur}px)`;
+}
+
+
+function checkSquarePosition() {
+	if (isPositionRight()) {
+		decreaseImageBlur();
+		state.speed += state.speedCatalisator;
+		if (state.blur === 0) {
+			stopGame();
+			showMessage('win');
+		} else showMessage('success', state.shortMessageTime);
+	} else {
+		increaseImageBlur();
+		if(state.blur > state.gameOverNumber){
+			state.game = false;
+			showMessage('lost');
+		} else showMessage('mistake', state.shortMessageTime);
+	}
+}
+
 
 function stop() {
 	if (dom.message.textContent !== messages.win) {
 		state.game = true;
 		cancelAnimationFrame(state.animation);
-		if (isPositionRight()) {
-			state.blur--;
-			dom.blur.textContent = state.blur;
-			dom.squareImg.style.filter = `blur(${state.blur}px)`;
-			state.speed += state.speedCatalisator;
-			if (state.blur === 0) {
-				state.game = false;
-				dom.audioNextLevel.play();
-				showMessage('win');
-				state.rotateAngle = 0;
-				dom.square.style.transition = `1s`;
-				dom.square.style.transform = `rotate(${state.rotateAngle}deg)`;
-				setTimeout(() => dom.square.style.transition = `0s`, 1000);
-			} else {
-				dom.audioNice.play();
-				showMessage('success', state.shortMessageTime);
-			}
-		} else {
-			dom.audioNotNice.play();
-			state.blur++;
-			dom.blur.textContent = state.blur;
-			dom.squareImg.style.filter = `blur(${state.blur}px)`;
-			if(state.blur > state.gameOverNumber){
-				dom.audioLost.play();
-				state.game = false;
-				showMessage('lost');
-			} else showMessage('mistake', state.shortMessageTime);
-		}
+		checkSquarePosition();
 	}
 }
 
