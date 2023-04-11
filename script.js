@@ -64,6 +64,7 @@ function showMessage (mood, time) {
 	clearTimeout(state.messageTimeoutId);
 	dom.message.style.display = 'block';
 	dom.message.style.color = 'var(--yellow-color)';
+	dom.message.classList.remove('active');
 
 	switch (mood) {
 		case 'success':
@@ -81,6 +82,7 @@ function showMessage (mood, time) {
 			dom.audioLost.play();
 			break
 		case 'win':
+			dom.message.classList.add('active');
 			dom.message.textContent = messages.win;
 			dom.audioNextLevel.play();
 			break
@@ -103,12 +105,12 @@ function rotate() {
 
 function decreaseImageBlur() {
 	dom.blur.textContent = `${--state.blur}`;
-	dom.squareImg.style.filter = `blur(${state.blur}px)`;
+	dom.squareImg.style.filter = `blur(${state.blur * 2}px)`;
 }
 
 function increaseImageBlur() {
 	dom.blur.textContent = `${++state.blur}`;
-	dom.squareImg.style.filter = `blur(${state.blur}px)`;
+	dom.squareImg.style.filter = `blur(${state.blur * 2}px)`;
 }
 
 
@@ -161,7 +163,7 @@ function changeLevel() {
 		dom.message.textContent = '';
 		state.speed = (state.initialSpeed + (0.1 * state.level));
 		dom.squareImg.src = `./assets/img/level-${state.level}.jpg`;
-		dom.squareImg.style.filter = `blur(${state.blur}px)`;
+		dom.squareImg.style.filter = `blur(${state.blur * 2}px)`;
 		if (state.level === 5) dom.audioLastLevel.play();
 	}
 }

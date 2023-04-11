@@ -56,23 +56,22 @@ button:hover {
 }
 
 #square {
-    border: 0.5em solid var(--purple-color);
-    width: 22em;
-    height: 22em;
+    border: 15px solid var(--purple-color);
+    width: 20rem;
+    height: 20rem;
     margin-left: 7em;
 }
 
 #square-img {
-    filter: blur(5px);
-    max-width: 21em;
-    max-height: 21em;
+    filter: blur(8px);
+    max-width: 100%;
+    max-height: 100%;
 }
 
 #mark {
     margin-left: 5em;
-    width: 4rem;
-    border: 8px solid var(--yellow-color);
-    border-radius: 50px;
+    width: 3rem;
+    border: 6px solid var(--yellow-color);
 }
 
 #blur-div {
@@ -100,7 +99,7 @@ button:hover {
     cursor: pointer;
     transition: border-color 150ms;
 }
-#message:hover {
+#message.active:hover {
    border-color: var(--purple-color);
 }
 
@@ -113,9 +112,6 @@ button:hover {
     flex-direction: column;
 }
 
-
-
-/************************** MODAL AND RELOAD BUTTONS ***********************************/
 .small-btn {
     position: absolute;
     margin: 0;
