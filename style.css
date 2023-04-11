@@ -60,6 +60,7 @@ button:hover {
     width: 20rem;
     height: 20rem;
     margin-left: 7em;
+    overflow: hidden;
 }
 
 #square-img {
