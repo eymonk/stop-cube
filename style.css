@@ -70,7 +70,8 @@ button:hover {
 #mark {
     margin-left: 5em;
     width: 4rem;
-    border: 6px solid var(--yellow-color);
+    border: 9px solid var(--yellow-color);
+    border-radius: 50px;
 }
 
 #blur-div {
