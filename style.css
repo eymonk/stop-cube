@@ -71,7 +71,7 @@ button:hover {
 #mark {
     margin-left: 5em;
     width: 4rem;
-    border: 9px solid var(--yellow-color);
+    border: 8px solid var(--yellow-color);
     border-radius: 50px;
 }
 

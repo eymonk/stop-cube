@@ -12,22 +12,24 @@ const dom = {
 	audioSuccess: document.getElementById('audio-success'),
 	audioMistake: document.getElementById('audio-mistake'),
 	audioNextLevel: document.getElementById('audio-next-level'),
-	audioLost: document.getElementById('audio-ost'),
+	audioLost: document.getElementById('audio-lost'),
 	audioLastLevel: document.getElementById('audio-last-level'),
 }
 
 
 const state = {
-	game: true,
+	game: false,
 	level: 1,
 	rotateAngle: 0.01,
 	initialBlur: 4,
 	blur: 4,
 	speed: 0.2,
-	speedCatalisator: 0.05,
-	animation: null,
+	initialSpeed: 0.2,
+	speedCatalisator: 0.025,
 	shortMessageTime: 1000,
 	gameOverNumber: 10,
+	animation: null,
+	messageTimeoutId: null,
 }
 
 const messages = {
@@ -35,7 +37,7 @@ const messages = {
 	mistake: 'Блин🙁',
 	win: 'Го дальше🙃',
 	lost: 'Ну всё, хватит🤥',
-	end: 'МОЛОДЕЦ😮',
+	end: 'МОЛОДЕЦ😮 Это конец...',
 }
 
 
@@ -58,55 +60,46 @@ function isPositionRight() {
 }
 
 
-function showMessage (mood, time){
+function showMessage (mood, time) {
+	clearTimeout(state.messageTimeoutId);
 	dom.message.style.display = 'block';
 	dom.message.style.color = 'var(--yellow-color)';
 
-	switch(mood){
+	switch (mood) {
 		case 'success':
 			dom.message.textContent = messages.success;
 			dom.audioSuccess.play();
-		break
+			break
 		case 'mistake':
 			dom.message.style.color = 'var(--red-color)';
 			dom.message.textContent = messages.mistake;
 			dom.audioMistake.play();
-		break
+			break
 		case 'lost':
 			dom.message.style.color = 'var(--red-color)';
 			dom.message.textContent = messages.lost;
 			dom.audioLost.play();
-		break
+			break
 		case 'win':
 			dom.message.textContent = messages.win;
 			dom.audioNextLevel.play();
-		break
+			break
 		case 'end':
 			dom.message.textContent = messages.end;
-		break
+			break
 	}
 
-	time && setTimeout(() => dom.message.style.display = 'none', time);
+	if (time) state.messageTimeoutId = setTimeout(() => dom.message.style.display = 'none', time);
 }
 
-
 function rotate() {
+	state.game = true;
 	dom.square.style.transform = `rotate(${state.rotateAngle}deg)`;
 	state.animation = requestAnimationFrame(rotate);
-	state.game = false;
 
 	if (state.rotateAngle > 360) state.rotateAngle = 0;
 	state.rotateAngle += state.speed;
 }
-
-function stopGame() {
-	state.game = false;
-	dom.square.style.transition = `1s`;
-	state.rotateAngle = 0;
-	dom.square.style.transform = `rotate(${state.rotateAngle}deg)`;
-	setTimeout(() => dom.square.style.transition = `0s`, 1000);
-}
-
 
 function decreaseImageBlur() {
 	dom.blur.textContent = `${--state.blur}`;
@@ -119,58 +112,70 @@ function increaseImageBlur() {
 }
 
 
+function stopGame() {
+	state.game = false;
+	dom.square.style.transition = `1s`;
+	state.rotateAngle = 0;
+	dom.square.style.transform = `rotate(${state.rotateAngle}deg)`;
+	setTimeout(() => dom.square.style.transition = `0s`, 1000);
+}
+
+
 function checkSquarePosition() {
 	if (isPositionRight()) {
 		decreaseImageBlur();
-		state.speed += state.speedCatalisator;
 		if (state.blur === 0) {
 			stopGame();
-			showMessage('win');
+			if (state.level < 5) showMessage('win');
+			else {
+				showMessage('end');
+				state.game = false;
+			}
 		} else showMessage('success', state.shortMessageTime);
 	} else {
 		increaseImageBlur();
 		if(state.blur > state.gameOverNumber){
-			state.game = false;
+			state.game = true;
 			showMessage('lost');
 		} else showMessage('mistake', state.shortMessageTime);
 	}
 }
 
 
+
 function stop() {
-	if (dom.message.textContent !== messages.win) {
-		state.game = true;
-		cancelAnimationFrame(state.animation);
-		checkSquarePosition();
-	}
+	state.game = false;
+	cancelAnimationFrame(state.animation);
+	state.speed += state.speedCatalisator;
+	checkSquarePosition();
 }
 
 
 function changeLevel() {
-	if (dom.message.textContent === 'Го дальше🙃') {
-		dom.message.textContent = '';
-		dom.message.style.display = 'none';
-		state.blur = state.initialBlur + state.level;
-		state.level++;
-		state.rotateAngle = 0;
-		state.speed += 0.1;
-		state.game = true;
-		dom.blur.textContent = state.blur;
-		dom.square.style.transform = `rotate(${state.rotateAngle}deg)`;
-		dom.squareImg.style.filter = `blur(${state.blur}px)`;
-		dom.squareImg.src = `./assets/img/level-${state.level}.jpg`;
-		if (state.level === 5) setTimeout(()=> dom.audioLastLevel.play(), 700);
-	}
-
-	if (state.level > 5) {
-		showMessage('end');
+	if (dom.message.textContent === messages.win) {
 		state.game = false;
+		state.level++;
+		state.blur = state.initialBlur + state.level;
+		dom.blur.textContent = state.blur;
+		dom.message.style.display = 'none';
+		dom.message.textContent = '';
+		state.speed = (state.initialSpeed + (0.1 * state.level));
+		dom.squareImg.src = `./assets/img/level-${state.level}.jpg`;
+		dom.squareImg.style.filter = `blur(${state.blur}px)`;
+		if (state.level === 5) dom.audioLastLevel.play();
 	}
 }
 
 
-dom.rotateBtn.addEventListener('click', () => { if(state.game) rotate() });
-dom.stopBtn.addEventListener('click', () => { if(!state.game) stop() });
+dom.rotateBtn.addEventListener('click', () => {
+	if (!state.game
+		&& dom.message.textContent !== messages.win
+		&& dom.message.textContent !== messages.end)
+		rotate();
+});
+dom.stopBtn.addEventListener('click', () => {
+	if (state.game && dom.message.textContent !== messages.lost) stop()
+});
 dom.message.addEventListener('click', () => changeLevel());
 
 const toggleModal = () => dom.modal.classList.toggle('hidden');
