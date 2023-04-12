@@ -14,7 +14,7 @@ const dom = {
 	audioNextLevel: document.getElementById('audio-next-level'),
 	audioLost: document.getElementById('audio-lost'),
 	audioLastLevel: document.getElementById('audio-last-level'),
-}
+};
 
 
 const state = {
@@ -30,7 +30,16 @@ const state = {
 	gameOverNumber: 10,
 	animation: null,
 	messageTimeoutId: null,
-}
+};
+
+(function(){
+	const regEx = /android/ig;
+	const result = navigator.userAgent.match(regEx);
+	if (result) {
+		state.speed = 0.7;
+		state.initialSpeed = 0.7;
+	}
+})();
 
 const messages = {
 	success: 'Ура😉',
@@ -38,7 +47,7 @@ const messages = {
 	win: 'Го дальше🙃',
 	lost: 'Ну всё, хватит🤥',
 	end: 'МОЛОДЕЦ😮 Это конец...',
-}
+};
 
 
 function isPositionRight() {
@@ -185,4 +194,3 @@ dom.showModalBtn.addEventListener('click', () => toggleModal());
 dom.closeModalBtn.addEventListener('click', () => toggleModal());
 
 dom.reloadBtn.addEventListener('click', () => window.location.reload());
-
