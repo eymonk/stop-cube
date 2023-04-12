@@ -26,7 +26,7 @@ button {
     font-size: 1.5rem;
     margin: 7px;
     width: 7em;
-    height: 3em;
+    padding: 25px 0;
     border-radius: 70px;
     background-color: var(--yellow-color);
     position: relative;
@@ -115,10 +115,11 @@ button:hover {
 .small-btn {
     position: absolute;
     margin: 0;
+    padding: 0;
     font-size: 2rem;
     background-color: transparent;
-    width: 2em;
-    height: 2em;
+    width: 80px;
+    height: 80px;
     color: var(--yellow-color);
     border: 5px solid var(--purple-color);
     border-radius: 100px;
@@ -167,7 +168,6 @@ button:hover {
     font-size: 1rem;
     margin: 0;
     width: 7em;
-    height: 3em;
     border-radius: 70px;
     transition: .1s;
 }
@@ -252,6 +252,9 @@ button:hover {
 }
 
 @media screen and (max-width: 700px) {
+    #container {
+        padding-bottom: 25%;
+    }
     #square {
         width: 14rem;
         height: 14rem;
@@ -305,16 +308,14 @@ button:hover {
     .small-btn {
         width: 60px;
         height: 60px;
+        font-size: 25px;
     }
 }
 
 @media screen and (max-width: 500px) {
     #square {
-        width: 10rem;
-        height: 10rem;
-    }
-    #controls-div {
-        top: 65%;
+        width: 11rem;
+        height: 11rem;
     }
     #contacts {
         font-size: 1rem;
@@ -324,16 +325,14 @@ button:hover {
     }
     #info {
         line-height: 1;
+        font-size: 16px;
     }
 }
 
 @media screen and (max-width: 400px) {
     #square {
-        width: 8rem;
-        height: 8rem;
-    }
-    #controls-div {
-        top: 62%;
+        width: 9rem;
+        height: 9rem;
     }
     #mark {
         margin-left: 2rem;
@@ -342,5 +341,12 @@ button:hover {
     button {
         font-size: 1rem;
         margin: 4px;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    #square {
+        width: 7.5rem;
+        height: 7.5rem;
     }
 }
